@@ -1,4 +1,35 @@
+const petCards = document.getElementById('pet-cards')
+const selectPet = document.getElementById('select-pet')
+const selectSkill = document.getElementById('select-skill')
+const playerCard = document.getElementById('player-card')
+const playerPet = document.getElementById('player-pet')
+const spanPlayerLife = document.getElementById('player-lifes')
+const playerLog = document.getElementById('player-log')
+const enemyCard = document.getElementById('npc-card')
+const enemyPet = document.getElementById('npc-pet')
+const spanEnemyLife = document.getElementById('npc-lifes')
+const enemyLog = document.getElementById('npc-log')
+const btnPetPlayer = document.getElementById('select')
+const btnFire = document.getElementById('fire')
+const btnWater = document.getElementById('water')
+const btnEarth = document.getElementById('earth')
+const message = document.getElementById('result')
+const btnReset = document.getElementById('reset')
+const endSection = document.getElementById('end')
+
+
+let playerSkill
+let enemySkill
+let playerLifes = 3
+let enemyLifes = 3
+let battleResult
 let kopetoms = []
+let inputHipodoge
+let inputCapipepo
+let inputRatigueya
+let inputLangostelvis
+let inputTucapalma
+let inputPydos
 
 class Kopetom {
     constructor(name, img, life){
@@ -61,54 +92,26 @@ pydos.skill.push(
 
 kopetoms.push(hipodoge, capipepo, ratigueya, tucapalma, langostelvis, pydos)
 
-const petCards = document.getElementById('pet-cards')
-
-kopetoms.forEach((kopetom) => {
-    kopetomOptions = `
-    <input type="radio" name="pet" id=${kopetom.name.toLowerCase()} >
-    <label class="pet-card" for=${kopetom.name.toLowerCase()} >
-        ${kopetom.name}
-        <img src=${kopetom.img} alt=${kopetom.name.toLowerCase()}>
-    </label>
-    `
-    petCards.innerHTML += kopetomOptions
-})
-
-const inputHipodoge = document.getElementById('hipodoge')
-const inputCapipepo = document.getElementById('capipepo')
-const inputRatigueya = document.getElementById('ratigueya')
-const inputLangostelvis = document.getElementById('langostelvis')
-const inputTucapalma = document.getElementById('tucapalma')
-const inputPydos = document.getElementById('pydos')
-
-
-const selectPet = document.getElementById('select-pet')
-const selectSkill = document.getElementById('select-skill')
-const playerCard = document.getElementById('player-card')
-const playerPet = document.getElementById('player-pet')
-const spanPlayerLife = document.getElementById('player-lifes')
-const playerLog = document.getElementById('player-log')
-const enemyCard = document.getElementById('npc-card')
-const enemyPet = document.getElementById('npc-pet')
-const spanEnemyLife = document.getElementById('npc-lifes')
-const enemyLog = document.getElementById('npc-log')
-const btnPetPlayer = document.getElementById('select')
-const btnFire = document.getElementById('fire')
-const btnWater = document.getElementById('water')
-const btnEarth = document.getElementById('earth')
-const message = document.getElementById('result')
-const btnReset = document.getElementById('reset')
-const endSection = document.getElementById('end')
-
-
-let playerSkill
-let enemySkill
-let playerLifes = 3
-let enemyLifes = 3
-let battleResult
-
-
 function startGame(){
+
+    kopetoms.forEach((kopetom) => {
+        kopetomOptions = `
+        <input type="radio" name="pet" id=${kopetom.name.toLowerCase()} />
+        <label class="pet-card" for=${kopetom.name.toLowerCase()}>
+            ${kopetom.name}
+            <img src=${kopetom.img} alt=${kopetom.name.toLowerCase()}>
+        </label>
+        `
+        petCards.innerHTML += kopetomOptions
+
+        inputHipodoge = document.getElementById('hipodoge')
+        inputCapipepo = document.getElementById('capipepo')
+        inputRatigueya = document.getElementById('ratigueya')
+        inputLangostelvis = document.getElementById('langostelvis')
+        inputTucapalma = document.getElementById('tucapalma')
+        inputPydos = document.getElementById('pydos')
+
+    })
 
     btnPetPlayer.addEventListener('click', selectPetPlayer)
     btnFire.addEventListener('click', skillFire)
