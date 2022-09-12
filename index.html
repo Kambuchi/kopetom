@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Kopetom!</title>
+</head>
+<body>
+    <section id="select-pet">
+        <h1>Kopetom!</h1>
+        <h2>Choose your pet:</h2>
+        <div id='pet-cards'class="cards"></div>
+        <button type="button" id="select">Select</button>
+    </section>
+    <section id="select-skill">
+        <h1>Kopetom!</h1>
+        <h2>Choose your skill:</h2>
+        <div class="skills">
+            <button type="button" id="fire">Fire 💥</button>
+            <button type="button" id="water">Water 💦</button>
+            <button type="button" id="earth">Earth 🌋</button>
+        </div>
+        <section id="battle">
+            <div id="messages">
+                <p id="result">Good Luck!!!</p>
+                <div id="end">
+                    <button type="button" id="reset">Reset</button>
+                </div> 
+            </div>
+            <div id="battle-log">
+                <div id="player-card" class="card">
+                    <p id="player-pet"></p>
+                    <p id="player-lifes">3</p>
+                    <div id="player-log"></div>
+                </div>
+                <div id="npc-card" class="card">
+                    <p id="npc-pet"></p>
+                    <p id="npc-lifes">3</p>
+                    <div id="npc-log"></div>
+                    </div>
+                </div>
+        </section>
+    </section>
+    <script src="./scripts/index.js"></script>
+</body>
+</html>
