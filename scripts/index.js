@@ -104,14 +104,14 @@ function startGame(){
         `
         petCards.innerHTML += kopetomOptions
 
-        inputHipodoge = document.getElementById('hipodoge')
-        inputCapipepo = document.getElementById('capipepo')
-        inputRatigueya = document.getElementById('ratigueya')
-        inputLangostelvis = document.getElementById('langostelvis')
-        inputTucapalma = document.getElementById('tucapalma')
-        inputPydos = document.getElementById('pydos')
-
+        
     })
+    inputHipodoge = document.getElementById('hipodoge')
+    inputCapipepo = document.getElementById('capipepo')
+    inputRatigueya = document.getElementById('ratigueya')
+    inputLangostelvis = document.getElementById('langostelvis')
+    inputTucapalma = document.getElementById('tucapalma')
+    inputPydos = document.getElementById('pydos')
 
     btnPetPlayer.addEventListener('click', selectPetPlayer)
     btnFire.addEventListener('click', skillFire)
@@ -128,23 +128,23 @@ function selectPetPlayer(){
     let petImg = document.createElement('img')
     
     if(inputHipodoge.checked){
-        playerPet.innerHTML = 'Hipodoge'
-        petImg.src = './assets/img/hipodoge.png'
+        playerPet.innerHTML = hipodoge.name
+        petImg.src = hipodoge.img
     }else if(inputCapipepo.checked){
-        playerPet.innerHTML = 'Capipepo'
-        petImg.src = './assets/img/capipepo.png'
+        playerPet.innerHTML = capipepo.name
+        petImg.src = capipepo.img
     }else if(inputRatigueya.checked){
-        playerPet.innerHTML = 'Ratigueya'
-        petImg.src = './assets/img/ratigueya.png'
+        playerPet.innerHTML = ratigueya.name
+        petImg.src = ratigueya.img
     }else if(inputLangostelvis.checked){
-        playerPet.innerHTML = 'Langostelvis'
-        petImg.src = './assets/img/langostelvis.png'
+        playerPet.innerHTML = langostelvis.name
+        petImg.src = langostelvis.img
     }else if(inputTucapalma.checked){
-        playerPet.innerHTML = 'Tucapalma'
-        petImg.src = './assets/img/tucapalma.png'
+        playerPet.innerHTML = tucapalma.name
+        petImg.src = tucapalma.img
     }else if(inputPydos.checked){
-        playerPet.innerHTML = 'Pydos'
-        petImg.src = './assets/img/pydos.png'
+        playerPet.innerHTML = pydos.name
+        petImg.src = pydos.img
     }else{
         alert('SELECT A PET PLEASE.')
         resetGame()
@@ -159,23 +159,23 @@ function selectPetEnemy(){
     let petImg = document.createElement('img')
     let randomPet = random(1,6)
     if(randomPet == 1){
-        enemyPet.innerHTML = 'Hipodoge'
-        petImg.src = './assets/img/hipodoge.png'
+        enemyPet.innerHTML = hipodoge.name
+        petImg.src = hipodoge.img
     }else if(randomPet == 2){
-        enemyPet.innerHTML = 'Capipepo'
-        petImg.src = './assets/img/capipepo.png'
+        enemyPet.innerHTML = capipepo.name
+        petImg.src = capipepo.img
     }else if(randomPet == 3){
-        enemyPet.innerHTML = 'Ratigueya'
-        petImg.src = './assets/img/ratigueya.png'
+        enemyPet.innerHTML = ratigueya.name
+        petImg.src = ratigueya.img
     }else if(randomPet == 4){
-        enemyPet.innerHTML = 'Langostelvis'
-        petImg.src = './assets/img/langostelvis.png'
+        enemyPet.innerHTML = langostelvis.name
+        petImg.src = langostelvis.img
     }else if(randomPet == 5){
-        enemyPet.innerHTML = 'Tucapalma'
-        petImg.src = './assets/img/tucapalma.png'
+        enemyPet.innerHTML = tucapalma.name
+        petImg.src = tucapalma.img
     }else if(randomPet == 6){
         enemyPet.innerHTML = 'Pydos'
-        petImg.src = './assets/img/pydos.png'
+        petImg.src = pydos.img
     }
     enemyCard.insertBefore(petImg, enemyPet)
 }
