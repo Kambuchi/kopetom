@@ -31,7 +31,7 @@ h2{
     align-items: center;
 }
 
-.cards, .skills {
+.cards, #skills {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -53,6 +53,7 @@ h2{
 }
 
 img {
+    padding: 5px;
     width: 85px;
     height: 85px;
 }

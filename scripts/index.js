@@ -10,20 +10,21 @@ const enemyPet = document.getElementById('npc-pet')
 const spanEnemyLife = document.getElementById('npc-lifes')
 const enemyLog = document.getElementById('npc-log')
 const btnPetPlayer = document.getElementById('select')
-const btnFire = document.getElementById('fire')
-const btnWater = document.getElementById('water')
-const btnEarth = document.getElementById('earth')
+const skillsContainer = document.getElementById('skills')
 const message = document.getElementById('result')
 const btnReset = document.getElementById('reset')
 const endSection = document.getElementById('end')
 
 
-let playerSkill
-let enemySkill
-let playerLifes = 3
-let enemyLifes = 3
-let battleResult
+let playerSkillSequence = []
+let playerSkills
+let enemySkillSequence = []
+let enemySkills
+let playerWins = 0
+let enemyWins = 0
 let kopetoms = []
+let buttons = []
+let skillSet
 let inputHipodoge
 let inputCapipepo
 let inputRatigueya
@@ -114,9 +115,6 @@ function startGame(){
     inputPydos = document.getElementById('pydos')
 
     btnPetPlayer.addEventListener('click', selectPetPlayer)
-    btnFire.addEventListener('click', skillFire)
-    btnWater.addEventListener('click', skillWater)
-    btnEarth.addEventListener('click', skillEarth)
     btnReset.addEventListener('click', resetGame)
 
     selectSkill.style.display = 'none'
@@ -130,129 +128,125 @@ function selectPetPlayer(){
     if(inputHipodoge.checked){
         playerPet.innerHTML = hipodoge.name
         petImg.src = hipodoge.img
+        playerSkills = hipodoge.skill
     }else if(inputCapipepo.checked){
         playerPet.innerHTML = capipepo.name
         petImg.src = capipepo.img
+        playerSkills = capipepo.skill
     }else if(inputRatigueya.checked){
         playerPet.innerHTML = ratigueya.name
         petImg.src = ratigueya.img
+        playerSkills = ratigueya.skill
     }else if(inputLangostelvis.checked){
         playerPet.innerHTML = langostelvis.name
         petImg.src = langostelvis.img
+        playerSkills = langostelvis.skill
     }else if(inputTucapalma.checked){
         playerPet.innerHTML = tucapalma.name
         petImg.src = tucapalma.img
+        playerSkills = tucapalma.skill
     }else if(inputPydos.checked){
         playerPet.innerHTML = pydos.name
         petImg.src = pydos.img
+        playerSkills = pydos.skill
     }else{
         alert('SELECT A PET PLEASE.')
         resetGame()
     }
     playerCard.insertBefore(petImg, playerPet)
     selectPetEnemy()
+    showSkills()
     selectPet.style.display = 'none'
     selectSkill.style.display = 'flex'
 }
 
+function showSkills(){
+    playerSkills.forEach((skill)=>{
+        skillSet = `
+            <button type="button" id=${skill.id} class="skill">${skill.name}</button>
+        `
+        skillsContainer.innerHTML += skillSet
+    })
+    buttons = document.querySelectorAll('.skill')
+    skillSequence()
+}
+
+function skillSequence(){
+    buttons.forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            if(e.target.textContent === '💥'){
+                playerSkillSequence.push('FIRE')
+                btn.disabled = true
+            }else if(e.target.textContent === '🌋'){
+                playerSkillSequence.push('EARTH')
+                btn.disabled = true
+            }else if(e.target.textContent === '💦'){
+                playerSkillSequence.push('WATER')
+                btn.disabled = true
+            }
+            if(playerSkillSequence.length == 5){
+                battle()
+            }
+        })
+    })
+}
+
 function selectPetEnemy(){
     let petImg = document.createElement('img')
-    let randomPet = random(1,6)
-    if(randomPet == 1){
-        enemyPet.innerHTML = hipodoge.name
-        petImg.src = hipodoge.img
-    }else if(randomPet == 2){
-        enemyPet.innerHTML = capipepo.name
-        petImg.src = capipepo.img
-    }else if(randomPet == 3){
-        enemyPet.innerHTML = ratigueya.name
-        petImg.src = ratigueya.img
-    }else if(randomPet == 4){
-        enemyPet.innerHTML = langostelvis.name
-        petImg.src = langostelvis.img
-    }else if(randomPet == 5){
-        enemyPet.innerHTML = tucapalma.name
-        petImg.src = tucapalma.img
-    }else if(randomPet == 6){
-        enemyPet.innerHTML = 'Pydos'
-        petImg.src = pydos.img
-    }
+    let randomPet = random(0,kopetoms.length -1)
+    console.log(randomPet)
+    enemyPet.innerHTML = kopetoms[randomPet].name
+    petImg.src = kopetoms[randomPet].img
+    enemySkills = kopetoms[randomPet].skill
+    enemySkills.sort(()=>Math.random()-0.5).forEach((s)=>{
+        enemySkillSequence.push(s.id.toUpperCase())
+    })
     enemyCard.insertBefore(petImg, enemyPet)
 }
 
-function skillFire(){
-    playerSkill = 'FIRE'
-    selectEnemySkill()
-}
 
-function skillWater(){
-    playerSkill = 'WATER'
-    selectEnemySkill()
-}
 
-function skillEarth(){
-    playerSkill = 'EARTH'
-    selectEnemySkill()
-}
-
-function selectEnemySkill(){
-    let randomSkill = random(1,3)
-    if(randomSkill == 1){
-        enemySkill = 'FIRE'
-    }else if(randomSkill == 2){
-        enemySkill = 'WATER'
-    }else if(randomSkill == 3){
-        enemySkill = 'EARTH'
-    }
-
-    createMessage()
-}
 function battle(){
-    if (playerSkill == enemySkill) {
-        battleResult = "DRAW"
-    } else if (playerSkill == "FIRE" && enemySkill == "EARTH") {
-        battleResult = "WIN"
-        enemyLifes--
-        spanEnemyLife.innerHTML = enemyLifes
-    } else if (playerSkill == "WATER" && enemySkill == "FIRE") {
-        battleResult = "WIN"
-        enemyLifes--
-        spanEnemyLife.innerHTML = playerLifes
-    } else if (playerSkill == "EARTH" && enemySkill == "WATER") {
-        battleResult = "WIN"
-        enemyLifes--
-        spanEnemyLife.innerHTML = enemyLifes
-    } else {
-        battleResult = "LOSE"
-        playerLifes--
-        spanPlayerLife.innerHTML = playerLifes
+
+    for (let i = 0; i < 5; i++) {
+        if(playerSkillSequence[i] === enemySkillSequence[i]){
+            createMessage(playerSkillSequence[i], enemySkillSequence[i])
+            // createMessageResult('DRAW')
+        }else if(playerSkillSequence[i] === "WATER" && enemySkillSequence[i] === "FIRE" || playerSkillSequence[i] === "FIRE" && enemySkillSequence[i] === "EARTH" || playerSkillSequence[i] === "EARTH" && enemySkillSequence[i] === "WATER"){
+            createMessage(playerSkillSequence[i], enemySkillSequence[i])
+            // createMessageResult('WIN')
+            playerWins++
+        }else{
+            createMessage(playerSkillSequence[i], enemySkillSequence[i])
+            // createMessageResult('LOSE')
+            enemyWins++
+        }
+        
+    }
+
+    if(playerWins > enemyWins){
+        createMessageResult('NICE, YOU WIN!!')
+    }else if(playerWins === enemyWins){
+        createMessageResult("IT'S A DRAW")
+    }else{
+        createMessageResult('SORRY, YOU LOSE')
     }
 }
 
-function checkLifes(){
-    if(enemyLifes == 0){
-        createMessageResult('Enemy pet died. YOU WIN!!')
-    }else if(playerLifes == 0){
-        createMessageResult('Your pet died. YOU LOSE :(')
-    }
-}
 
-function createMessage(){
+
+function createMessage(player, enemy){
     let playerSkillUsed = document.createElement('p')
     let enemySkillUsed = document.createElement('p')
-    battle()
-    message.innerHTML = battleResult
-    playerSkillUsed.innerHTML = playerSkill
-    enemySkillUsed.innerHTML = enemySkill
+    playerSkillUsed.innerHTML = player
+    enemySkillUsed.innerHTML = enemy
     playerLog.appendChild(playerSkillUsed)
     enemyLog.appendChild(enemySkillUsed)
-    checkLifes()
 }
 
 function createMessageResult(result){
-    btnFire.disabled = true
-    btnWater.disabled = true
-    btnEarth.disabled = true
+    spanEnemyLife.innerHTML = enemyWins
+    spanPlayerLife.innerHTML = playerWins
     message.innerHTML = result
     endSection.style.display = 'block'
 }
